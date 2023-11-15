@@ -8,6 +8,8 @@
         * {
             font-family: 'Roboto', sans-serif;
             font-size: 1em;
+            color: white;
+            background-color: black;
         }
 
         .formGroup {
@@ -34,7 +36,7 @@
         h1 {
             margin: 0;
             font-size: 2em;
-            color: #27348B;
+            color: white;
         }
 
         #logo {
@@ -44,36 +46,43 @@
         h2 {
             margin-left: px;
             margin: 1em;
-            color: #2D9CDB;
+            color: white;
         }
 
         * {
-            color: gray;
+            color: white;
         }
 
         input {
+            color: white;
             line-height: 1;
             height: 2em;
         }
 
+        input::placeholder {
+            color: white;
+        }
+
         label {
+            color: white;
             margin-bottom: 0.2em;
         }
 
         body {
+            color: white;
             margin: 2em;
         }
 
         button {
-            height: 2em;
+            height: 4vw;
             background-color: #27348B;
             border: 1pt solid #27348B;
-            font-size: 1em;
+            font-size: 2vw;
             border-radius: 3px;
             color: white;
             cursor: pointer;
             font-weight: bold;
-            height: 2.5em;
+            height: 3vw;
             padding-left: 20px;
             padding-right: 20px;
         }
@@ -81,7 +90,7 @@
         tr,
         th,
         td {
-            border: 1pt solid gray;
+            color: white;
             padding: 3;
             font-size: 0.9em;
         }
@@ -105,29 +114,28 @@
 </head>
 
 <body>
-    <img id="logo" src="unisinos-logo.svg" width="200">
     <header>
-        <h1>Form vendas</h1>
+        <h1>Form Alunos</h1>
     </header>
     <div id="main">
         <section>
-            <h2>Cadastrar venda</h2>
-            <article id="formVenda">
+            <h2>Cadastrar Aluno</h2>
+            <article id="formAluno">
                 <div class="formRow">
                     <label>Nome Aluno</label>
-                    <input type="text" id="txProduto" placeholder="Nome aluno">
+                    <input type="text" id="txAluno" placeholder="Nome aluno">
                 </div>
                 <div class="formRow">
                     <label>Disciplina</label>
-                    <input type="number" id="txVendedor" placeholder="Id disciplina">
+                    <input type="number" id="txDisciplina" placeholder="Id disciplina">
                 </div>
                 <div class="formRow">
                     <label>Dia</label>
-                    <input type="number" id="txCliente" placeholder="Dia da semana">
+                    <input type="number" id="txDiaSemana" placeholder="Dia da semana">
                 </div>
                 <div class="formRow">
                     <label>Turno</label>
-                    <input type="number" id="dtVenda" placeholder="Turno do dia">
+                    <input type="number" id="txTurno" placeholder="Turno do dia">
                 </div>
 
 
@@ -192,10 +200,10 @@
         }
 
         function selecionar(obj) {
-            document.getElementById('txProduto').value = obj.produto;
-            document.getElementById('txVendedor').value = obj.vendedor;
-            document.getElementById('txCliente').value = obj.cliente;
-            document.getElementById('dtVenda').value = obj.data;
+            document.getElementById('txAluno').value = obj.produto;
+            document.getElementById('txDisciplina').value = obj.vendedor;
+            document.getElementById('txDiaSemana').value = obj.cliente;
+            document.getElementById('txTurno').value = obj.data;
             document.getElementById('vlVenda').value = obj.valor;
             let bt = document.getElementById('btnExcluir');
             bt.className = '';
@@ -204,10 +212,10 @@
         }
 
         function resetForm() {
-            document.getElementById('txProduto').value = null;
-            document.getElementById('txVendedor').value = null;
-            document.getElementById('txCliente').value = null;
-            document.getElementById('dtVenda').value = null;
+            document.getElementById('txAluno').value = null;
+            document.getElementById('txDisciplina').value = null;
+            document.getElementById('txDiaSemana').value = null;
+            document.getElementById('txTurno').value = null;
             let bt = document.getElementById('btnExcluir');
             bt.className = 'disabled';
             bt.disabled = 'disabled';
@@ -218,10 +226,10 @@
 
             const venda = {
                 id: idSelecionado,
-                aluno: document.getElementById('txProduto').value,
-                disciplina: document.getElementById('txVendedor').value,
-                diaSemana: document.getElementById('txCliente').value,
-                turno: document.getElementById('dtVenda').value
+                aluno: document.getElementById('txAluno').value,
+                disciplina: document.getElementById('txDisciplina').value,
+                diaSemana: document.getElementById('txDiaSemana').value,
+                turno: document.getElementById('txTurno').value
             }
 
             fetch('http://localhost:3000/venda', {
