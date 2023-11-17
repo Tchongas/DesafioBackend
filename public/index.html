@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <style>
@@ -126,22 +125,21 @@
                     <input type="text" id="txAluno" placeholder="Nome aluno">
                 </div>
                 <div class="formRow">
-                    <label>Disciplina</label>
-                    <input type="number" id="txDisciplina" placeholder="Id disciplina">
+                    <label>Email</label>
+                    <input type="text" id="txEmail" placeholder="Email">
                 </div>
                 <div class="formRow">
                     <label>Dia</label>
-                    <input type="number" id="txDiaSemana" placeholder="Dia da semana">
+                    <input type="text" id="txDiaSemana" placeholder="Dia da semana">
                 </div>
                 <div class="formRow">
                     <label>Turno</label>
-                    <input type="number" id="txTurno" placeholder="Turno do dia">
+                    <input type="text" id="txTurno" placeholder="Turno do dia">
                 </div>
 
 
                 <div class="formCol">
                     <button onclick="salvar()">Salvar</button>
-                    <button id="btnExcluir" onclick="excluir()" class="disabled" disabled>Excluir</button>
                 </div>
             </article>
         </section>
@@ -149,10 +147,10 @@
             <button onclick="carregarDados()">Carregar dados</button>
             <table id="registros">
                 <tr>
-                    <th>Aluno</th>
-                    <th>Disciplina</th>
-                    <th>DiaSemana</th>
-                    <th>Turno</th>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>ID sala</th>
                 </tr>
             </table>
         </section>
@@ -162,7 +160,7 @@
         let idSelecionado = null;
 
         function carregarDados() {
-            var myRequest = new Request('http://localhost:3000/venda');
+            var myRequest = new Request('http://localhost:3000/aluno');
             fetch(myRequest)
                 .then(response => {
                     if (response.status === 200) {
@@ -191,17 +189,17 @@
                     selecionar(element);
                 }
                 tr.innerHTML =
-                    '<td>' + element.aluno + '</td>'
-                    + '<td>' + element.disciplina + '</td>'
-                    + '<td>' + element.diaSemana + '</td>'
-                    + '<td class="valor">' + element.turno + '</td>';
+                    '<td>' + element.id + '</td>'
+                    + '<td>' + element.nome + '</td>'
+                    + '<td>' + element.email + '</td>'
+                    + '<td class="valor">' + element.class_id + '</td>';
                 tbl.appendChild(tr);
             }
         }
 
         function selecionar(obj) {
             document.getElementById('txAluno').value = obj.produto;
-            document.getElementById('txDisciplina').value = obj.vendedor;
+            document.getElementById('txEmail').value = obj.vendedor;
             document.getElementById('txDiaSemana').value = obj.cliente;
             document.getElementById('txTurno').value = obj.data;
             document.getElementById('vlVenda').value = obj.valor;
@@ -213,7 +211,7 @@
 
         function resetForm() {
             document.getElementById('txAluno').value = null;
-            document.getElementById('txDisciplina').value = null;
+            document.getElementById('txEmail').value = null;
             document.getElementById('txDiaSemana').value = null;
             document.getElementById('txTurno').value = null;
             let bt = document.getElementById('btnExcluir');
@@ -227,32 +225,18 @@
             const venda = {
                 id: idSelecionado,
                 aluno: document.getElementById('txAluno').value,
-                disciplina: document.getElementById('txDisciplina').value,
+                email: document.getElementById('txEmail').value,
                 diaSemana: document.getElementById('txDiaSemana').value,
                 turno: document.getElementById('txTurno').value
             }
 
-            fetch('http://localhost:3000/venda', {
+            fetch('http://localhost:3000/aluno', {
                 method: 'POST', 
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(venda),
-            }).then((response) => response.text())
-                .then((responseText) => {
-                    alert('Resposta back-end: ' + responseText);
-            });
-            resetForm();
-        }
-
-        function excluir() {
-            fetch('http://localhost:3000/venda/' + idSelecionado, {
-                method: 'DELETE',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                }
             }).then((response) => response.text())
                 .then((responseText) => {
                     alert('Resposta back-end: ' + responseText);
