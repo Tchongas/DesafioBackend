@@ -40,21 +40,83 @@ app.post('/aluno', function (req, res) {
             res.end('{ "msg": "Inserido com sucesso" }');
          }
       });
+      
 
+
+
+      
       //caso ID ja exista so atualizar
-   } else {
-      db.updateAlunos(obj, function (err, rs) {
-         if (err) {
-            res.json(err);
-         } else {
-            console.log(rs);
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end('{ "msg": "Alterado com sucesso" }');
-         }
-      });   
    }
 });
 
+
+
+
+//Cria pagina http://localhost:3000/aluno
+app.get('/turma', function (req, res) {
+   db.getTurmas(function (err, rows) {
+      if (err) {
+         res.json(err);
+      } else {
+         console.log('Enviando resposta');
+         res.json(rows);
+      }
+   });
+});
+
+//adicionar/atualizar items na DataBase
+app.post('/turma', function (req, res) {
+   var obj = req.body;
+   console.log(obj);
+
+   if (!obj.id) {
+      //cria ID unico da entrada
+      obj.id = Math.trunc((new Date().getTime()) / 1000);
+
+      //chama a funcao em repository.js 
+      db.addTurma(obj, function (err, rs) {
+         if (err) {
+            res.json(err);
+         } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end('{ "msg": "Inserido com sucesso" }');
+         }
+      });
+   }
+});
+
+
+app.get('/professor', function (req, res) {
+   db.getProfessor(function (err, rows) {
+      if (err) {
+         res.json(err);
+      } else {
+         console.log('Enviando resposta');
+         res.json(rows);
+      }
+   });
+});
+
+//adicionar/atualizar items na DataBase
+app.post('/professor', function (req, res) {
+   var obj = req.body;
+   console.log(obj);
+
+   if (!obj.id) {
+      //cria ID unico da entrada
+      obj.id = Math.trunc((new Date().getTime()) / 1000);
+
+      //chama a funcao em repository.js 
+      db.addProfessor(obj, function (err, rs) {
+         if (err) {
+            res.json(err);
+         } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end('{ "msg": "Inserido com sucesso" }');
+         }
+      });
+   }
+});
 
 
 var server = app.listen(3000, function () {

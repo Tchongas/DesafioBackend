@@ -1,18 +1,9 @@
 DROP TABLE alunos;
 
-CREATE TABLE alunos (
-	id int not null unique primary key,
-    aluno varchar(100) not null,
-    disciplina varchar(70) not null,
-    diaSemana varchar(70) not null,
-    turno varchar(70) not null,
-    status smallint default 0
-);
-
 CREATE TABLE aluno (
     id INT NOT NULL UNIQUE PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT  NULL
 );
 
 CREATE TABLE teacher (

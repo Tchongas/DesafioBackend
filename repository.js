@@ -11,7 +11,7 @@ var Escola = {
       db.query("INSERT INTO aluno (id, nome, email) VALUES (?,?,?)", 
          [
             input.id, 
-            input.aluno, 
+            input.nome, 
             input.email
          ], function(err) {
             if (err) {
@@ -33,17 +33,26 @@ var Escola = {
          });
    },
 
-   //nao fiz ainda
-   updateAlunos: function (input, callback) {
+   getTurmas: function (callback) {
+      console.log('Obtendo todos os registros de turmas');
+      return db.query("SELECT * FROM class;", null, callback);
+   },
 
-      return db.query("UPDATE alunos SET aluno=?, disciplina=?, diaSemana=?, turno=?, WHERE id=?", 
-      [
-         input.produto, input.vendedor, input.cliente, input.valor,
-         input.data.getFullYear()+'/'+(input.data.getMonth()+1)+'/'+input.data.getDate(), 
-         input.id
-      ], callback);
-   }
+   addTurma: function (input, callback) {
+      return db.query("INSERT INTO class (id, nome, turno, diaSemana, id_disciplina, id_professor) VALUES (?,?,?,?,?,?)", 
+         [input.id, input.nome, input.turno,input.diaSemana,input.id_disciplina,input.id_professor], callback);
+      },
 
+   getProfessor: function (callback) {
+      console.log('Obtendo todos os registros de turmas');
+      return db.query("SELECT * FROM teacher;", null, callback);
+   },
+   
+   addProfessor: function (input, callback) {
+      return db.query("INSERT INTO teacher (id, nome, email) VALUES (?,?,?)", 
+         [input.id, input.nome, input.email], callback);
+      }
+   
 };
 
 module.exports = Escola;
