@@ -119,6 +119,38 @@ app.post('/professor', function (req, res) {
 });
 
 
+app.get('/disciplina', function (req, res) {
+   db.getDisciplina(function (err, rows) {
+      if (err) {
+         res.json(err);
+      } else {
+         console.log('Enviando resposta');
+         res.json(rows);
+      }
+   });
+});
+
+//adicionar/atualizar items na DataBase
+app.post('/disciplina', function (req, res) {
+   var obj = req.body;
+   console.log(obj);
+
+   if (!obj.id) {
+      //cria ID unico da entrada
+      obj.id = Math.trunc((new Date().getTime()) / 1000);
+
+      //chama a funcao em repository.js 
+      db.addDisciplina(obj, function (err, rs) {
+         if (err) {
+            res.json(err);
+         } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end('{ "msg": "Inserido com sucesso" }');
+         }
+      });
+   }
+});
+
 var server = app.listen(3000, function () {
 
    var host = server.address().address;

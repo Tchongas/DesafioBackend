@@ -1,4 +1,3 @@
-DROP TABLE alunos;
 
 CREATE TABLE aluno (
     id INT NOT NULL UNIQUE PRIMARY KEY,
@@ -33,16 +32,6 @@ CREATE TABLE student_class (
     student_id INT,
     class_id INT,
     PRIMARY KEY (student_id, class_id),
-    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (student_id) REFERENCES aluno(id),
     FOREIGN KEY (class_id) REFERENCES class(id)
 );
-
-
-
-INSERT INTO class (id, nome, turno, diaSemana, id_disciplina, id_professor)
-VALUES (2, 'Test Class2', '2', '2', 1, 1);
-
-INSERT INTO teacher (id,nome,email) VALUES (1,"Joao","Joao@email.com");
-INSERT INTO school_subject (id,nome,descricao) VALUES (1,"mat","test");
-
-SELECT * FROM class;

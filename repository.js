@@ -44,13 +44,23 @@ var Escola = {
       },
 
    getProfessor: function (callback) {
-      console.log('Obtendo todos os registros de turmas');
+      console.log('Obtendo todos os registros de Professores');
       return db.query("SELECT * FROM teacher;", null, callback);
    },
    
    addProfessor: function (input, callback) {
       return db.query("INSERT INTO teacher (id, nome, email) VALUES (?,?,?)", 
          [input.id, input.nome, input.email], callback);
+      },
+   
+   getDisciplina: function (callback) {
+      console.log('Obtendo todos os registros de Disciplinas');
+      return db.query("SELECT * FROM school_subject;", null, callback);
+   },
+   
+   addDisciplina: function (input, callback) {
+      return db.query("INSERT INTO school_subject (id, nome, descricao) VALUES (?,?,?)", 
+         [input.id, input.nome, input.descricao], callback);
       }
    
 };
