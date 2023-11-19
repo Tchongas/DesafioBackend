@@ -1,12 +1,11 @@
 var db = require('./dbconnection'); //reference of dbconnection.js
 
 var Escola = {
-   //Pega todos os alunos da table aluno, e a sala dele na Table student_class
+   /* Tudo que esta aqui dentro sao os GET e POST do nosso server, um GET e POST pra cada table que um usuario precisaria */
    getAlunos: function (callback) {
       console.log('Obtendo todos os registros dos alunos!!!');
       return db.query("SELECT aluno.*, student_class.class_id FROM aluno LEFT JOIN student_class ON aluno.id = student_class.student_id ORDER BY aluno.id", null, callback);
    },
-   //insere as informacoes do HTML na table Aluno, acha a sala que tem os mesmos horarios que especificou
    addAluno: function (input, callback) {
       db.query("INSERT INTO aluno (id, nome, email) VALUES (?,?,?)", 
          [

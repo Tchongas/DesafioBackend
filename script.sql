@@ -28,6 +28,11 @@ CREATE TABLE class (
     FOREIGN KEY (id_professor) REFERENCES teacher(id)
 );
 
+
+
+
+/*Essa table aqui serve pra guardar qual sala cada estudante esta, e quando o GET e chamado pegamos o class_id daqui */
+
 CREATE TABLE student_class (
     student_id INT,
     class_id INT,
